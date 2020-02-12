@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Admin</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="exampleModalLong" data-target="#exampleModalLong" onclick="myFunction()">
+  Launch demo modal
+</button>
+
+<!-- <a href="https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf" target = "_blank">pdf</a> -->
+
+<!-- Modal view screenshot -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <iframe name = "iframeimage" id = "pdf_viewer_1"></iframe>
+          <!-- <img class="img-fluid" src = "https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf"> -->
+          <!-- <iframe id="ctlDisplayPDF" src="https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf" width="100%" height="930px"  runat="server"/> -->
+          <!-- <a href="https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf">pdf</a> -->
+          
+        </div>
+        <!-- <a class = "btn btn-success" href = "https://crosschargestorage.blob.core.windows.net/upload/portfolio.jpg" target = "iframeimage">download</a> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+function myFunction() {
+  $('#exampleModalLong').modal('show') ;               // initializes and invokes show immediately
+  var xhr = new XMLHttpRequest();
+  // load `document` from `cache`
+  xhr.open("GET", "https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf", true); 
+  xhr.responseType = "blob";
+  xhr.onreadystatechange = function (e) {
+      if (this.status === 200) {
+          // `blob` response
+          console.log(this.response);
+  var tfile = new Blob([this.response], {type: 'application/pdf'});
+          var file = window.URL.createObjectURL(tfile);
+          console.log($("#pdf_viewer_1")[0].src)
+          $("#pdf_viewer_1")[0].src = file;
+          console.log($("#pdf_viewer_1")[0].src)
+
+      }
+};
+xhr.send(); 
+}
+</script>
+
+ </body>
+ 
+ </html>
+
+

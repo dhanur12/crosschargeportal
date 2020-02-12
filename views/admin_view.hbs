@@ -7,14 +7,14 @@
 
         <link rel="stylesheet" href="/assets/css/animate.css">
         <link rel="stylesheet" href="/assets/css/admin_view.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-        <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
+<!-- Nav Bar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="">CrossCharge Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#hamburgermenu" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="ToggleNavigation">
@@ -60,20 +60,23 @@
     </div>
   </div>
 
-<div class="container_filter">
-    <div class="row">
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-        <input class="form-control mr-auto" id="myInput" type="text" placeholder="Search..">
-      </div>
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 inline-fields" >
-        {{!-- Date Range Picker --}}
-          <form action="/filter" method="post">
-              <label for="EndDate" >From</label> <input id="startDate" name="StartDate" />
+  <!--Filter Date Range-->
+    <div class="container">
+      
+          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+              {{!-- Date Range Picker --}}
+                <form action="/filter" method="post">
+                  
+                      <label for="StartDate">From</label> <input id="startDate" name="StartDate"  />
+                    
+                      <label for="EndDate">To</label> <input id="endDate" name="EndDate" />
+                    
+                      <button class="btn btn-success">Get Data</button>
+                </form>
+           
+    </div>
 
-              <label for="EndDate" >To</label> <input id="endDate" name="EndDate" />
-              <button class="btn btn-success">Get Data</button>
-          </form>
-
+<!--date picker script-->
         <script>
                 var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
                 $('#startDate').datepicker({
@@ -93,10 +96,9 @@
                 });
         </script>
         {{!-- Date Range Picker end --}}
-      </div>
-    </div>
-</div>
 
+
+<!--table-->
 <div class="container_table" style="overflow-x:auto;">
     <!--<input class="form-control mr-auto" id="myInput" type="text" placeholder="Search..">-->
     <br>
@@ -193,6 +195,9 @@
                >Edit</a>
             
             <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ transaction_id }}">Delete</a>
+            <button type="button" class="btn btn-primary" data-toggle="exampleModalLong" data-target="#exampleModalLong" onclick="myFunction()">
+                View screenshot
+            </button>
           </td>
         </tr>
         {{/each}}
@@ -304,7 +309,12 @@ $(document).ready(function(){
                      <option>Reclass</option>
                    </select>
                </div>
-
+               <div>
+                 <button type="button" class="btn btn-primary" id="select-button">Select and upload files</button>
+                 <input type="file" id="file-input" multiple style="display: none;" />
+                 <p><b>Status:</b></p>
+                 <p id="status" style="height:100px; width: 300px; overflow: hidden;" />
+               </div>
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -479,8 +489,61 @@ $(document).ready(function(){
          </div>
      </form>
 
+<!-- Modal view screenshot -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <iframe name = "iframeimage" class="embed-responsive-item" id = "pdf_viewer_1"></iframe>
+          {{!-- <img class="img-fluid" src = "https://crosschargestorage.blob.core.windows.net/upload/portfolio.jpg"> --}}
+        </div>
+        <a class = "btn btn-success" href = "https://crosschargestorage.blob.core.windows.net/upload/portfolio.jpg" target = "iframeimage">download</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/azure-storage-blob.js" charset="utf-8"></script>
+
+<!--script to view screenshot modal-->
+<script>
+function myFunction() {
+  $('#exampleModalLong').modal('show') ;               // initializes and invokes show immediately
+  var xhr = new XMLHttpRequest();
+  // load `document` from `cache`
+  xhr.open("GET", "https://crosschargestorage.blob.core.windows.net/upload/PrintReport.aspx.pdf", true); 
+  xhr.responseType = "blob";
+  xhr.onreadystatechange = function (e) {
+      if (this.status === 200) {
+          // `blob` response
+          console.log(this.response);
+  var tfile = new Blob([this.response], {type: 'application/pdf'});
+          var file = window.URL.createObjectURL(tfile);
+          console.log($("#pdf_viewer_1")[0].src)
+          $("#pdf_viewer_1")[0].src = file;
+          console.log($("#pdf_viewer_1")[0].src)
+
+      }
+};
+xhr.send();
+  
+}
+</script>
+
+<!--script to view, edit, delete entries from table-->
 <script>
     $(document).ready(function(){
         //showing data to edit modal      
@@ -577,5 +640,60 @@ $(document).ready(function(){
           $('.transaction_id2').val(transaction_id);
       });    
 </script>
+<!--script to upload images to blob-->
+<script> 
+  let fileName="";
+  const selectButton = document.getElementById("select-button");
+  const fileInput = document.getElementById("file-input");
+  const status = document.getElementById("status");
+  const accountName = "crosschargestorage";
+  const sasString = "?sv=2019-02-02&ss=b&srt=sco&sp=rwdlac&se=2020-08-01T18:23:18Z&st=2020-02-11T10:23:18Z&spr=https&sig=W3bOSY9Du86VvvlGxJ%2F8lCoNdXAxX%2FLjOvXQVzFPC44%3D";
+  const containerName = "upload";
+  const containerURL = new azblob.ContainerURL(
+        `https://${accountName}.blob.core.windows.net/${containerName}?${sasString}`,
+        azblob.StorageURL.newPipeline(new azblob.AnonymousCredential));
+    
+  const reportStatus = message => {
+        status.innerHTML += `${message}<br/>`;
+        status.scrollTop = status.scrollHeight;
+    }
+
+  const uploadFiles = async () => {
+    try {
+        reportStatus("Uploading files...");
+        const promises = [];
+        for (const file of fileInput.files) {
+            
+            const blockBlobURL = azblob.BlockBlobURL.fromContainerURL(containerURL, file.name);
+            promises.push(azblob.uploadBrowserDataToBlockBlob(
+                azblob.Aborter.none, file, blockBlobURL));
+        }
+        await Promise.all(promises);
+        reportStatus("Done.");
+        listFiles();
+
+    }
+    catch (error) {
+        fileName = document.getElementById('file-input').value;
+        let len = fileName.length;
+        console.log("Before Slicing: ",fileName);
+        for(let i=len-1; i>=0; i--){
+          if(fileName[i] === "\\"){
+            fileName = fileName.slice(i+1, len);
+            break;
+          }
+        }
+        console.log(fileName);
+        reportStatus(error.body.message);
+    }
+
+
+
+}
+
+selectButton.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", uploadFiles);  
+</script>
+
 </body>
 </html>
