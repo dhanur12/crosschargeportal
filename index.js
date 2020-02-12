@@ -79,7 +79,7 @@ app.post('/save',(req, res) => {
               request_type: req.body.selectPicker2,
               bmc_request: req.body.bmc_request,
               stat: req.body.stat,
-              date_time: req.body.date_time
+              //date_time: req.body.date_time
             };
             
   let sql = "INSERT INTO viewrequests SET ?";
@@ -92,11 +92,12 @@ app.post('/save',(req, res) => {
  
 //route for update data
 app.post('/update',(req, res) => {
-  let sql = "UPDATE viewrequests SET bot_id='"+req.body.bot_id+"', bill_to_cost_center='"+req.body.bill_to_cost_center+"', bill_to_gl_account='"+req.body.bill_to_gl_account+"', bill_to_company_code='"+req.body.bill_to_company_code+"', bill_to_country_code='"+req.body.bill_to_country_code+"', bill_to_currency='"+req.body.bill_to_currency+"', bill_to_amount='"+req.body.bill_to_amount+"', bill_to_approver_name='"+req.body.bill_to_approver_name+"', process_name='"+req.body.process_name+"', ul_el_name='"+req.body.ul_el_name+"', ul_el_email_id='"+req.body.ul_el_email_id+"', area='"+req.body.area+"', cost_type='"+req.body.cost_type+"', request_type = '"+req.body.request_type+"'  WHERE bot_id="+req.body.bot_id; //doubt
+  let sql = "UPDATE viewrequests SET bot_id='"+req.body.bot_id+"', bill_to_cost_center='"+req.body.bill_to_cost_center+"', bill_to_gl_account='"+req.body.bill_to_gl_account+"', bill_to_company_code='"+req.body.bill_to_company_code+"', bill_to_country_code='"+req.body.bill_to_country_code+"', bill_to_currency='"+req.body.bill_to_currency+"', bill_to_amount='"+req.body.bill_to_amount+"', bill_to_approver_name='"+req.body.bill_to_approver_name+"', process_name='"+req.body.process_name+"', ul_el_name='"+req.body.ul_el_name+"', ul_el_email_id='"+req.body.ul_el_email_id+"', area='"+req.body.area+"', cost_type='"+req.body.selectPicker+"', request_type = '"+req.body.selectPicker2+"', bmc_request = '"+req.body.bmc+"'  WHERE bot_id="+req.body.bot_id; //doubt
   let query = conn.query(sql, (err, results) => {
     console.log('hello');
     console.log(sql);
     if(err) throw err;
+    //res.send(req.body);
     res.redirect('/');
   });
 });

@@ -442,8 +442,8 @@ $(document).ready(function(){
                </div>
 
                <div class="form-group">
-                   <label for="bmcrequest">BMC Request</label>
-                   <input type="text" name="bmcrequest" id="bmc" class="form-control" placeholder="BMC Request" required>
+                   <label for="bmc_request">BMC Request</label>
+                   <input type="text" name="bmc_request" id="bmc" class="form-control" placeholder="BMC Request" required>
                </div>
                
                <div class="form-group">
@@ -501,7 +501,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
         <div>
-          <iframe name = "iframeimage" class="embed-responsive-item" id = "pdf_viewer_1"></iframe>
+          <iframe name = "iframeimage" class="embed-responsive-item" id = "pdf_viewer_1" width="400" height="400" ></iframe>
           {{!-- <img class="img-fluid" src = "https://crosschargestorage.blob.core.windows.net/upload/portfolio.jpg"> --}}
         </div>
         <a class = "btn btn-success" href = "https://crosschargestorage.blob.core.windows.net/upload/portfolio.jpg" target = "iframeimage">download</a>
@@ -530,7 +530,7 @@ function myFunction() {
       if (this.status === 200) {
           // `blob` response
           console.log(this.response);
-  var tfile = new Blob([this.response], {type: 'application/pdf'});
+          var tfile = new Blob([this.response], {type: 'application/pdf'});
           var file = window.URL.createObjectURL(tfile);
           console.log($("#pdf_viewer_1")[0].src)
           $("#pdf_viewer_1")[0].src = file;
@@ -674,6 +674,7 @@ xhr.send();
 
     }
     catch (error) {
+      //get file name of uploaded file
         fileName = document.getElementById('file-input').value;
         let len = fileName.length;
         console.log("Before Slicing: ",fileName);

@@ -1,6 +1,23 @@
 body, html {
     height: 100%;
 }
+/* html{
+    overflow: auto;
+}
+
+html,body,div,iframe{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    border: none;
+}
+iframe{
+    display: block;
+    widows: 100%;
+    border: none;
+    overflow-y: auto;
+    overflow-x: hidden; 
+} */
 
 /* The hero image */
 .hero-image {
@@ -160,3 +177,4 @@ body, html {
     margin-top: 10px;
     margin-bottom: 30px;
 }
+
